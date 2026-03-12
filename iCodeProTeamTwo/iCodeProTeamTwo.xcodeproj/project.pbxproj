@@ -46,7 +46,7 @@
 			children = (
 				2A03354B2F58494F000217CA /* Feature  */,
 				2A0335482F5848B5000217CA /* Core */,
-				2A0335472F58488D000217CA /* SupprotingFiles */,
+				2A0335472F58488D000217CA /* SupportingFiles */,
 				2A0335462F58483E000217CA /* Application */,
 				2A0335452F5847F9000217CA /* Resources */,
 				2A03351B2F583963000217CA /* Products */,
@@ -79,12 +79,12 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		2A0335472F58488D000217CA /* SupprotingFiles */ = {
+		2A0335472F58488D000217CA /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				2A0335392F5845D2000217CA /* Info.plist */,
 			);
-			path = SupprotingFiles;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		2A0335482F5848B5000217CA /* Core */ = {
@@ -259,7 +259,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/SupprotingFiles/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -290,7 +290,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/SupprotingFiles/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
