@@ -14,6 +14,7 @@
 		2A0335432F5845D2000217CA /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03353C2F5845D2000217CA /* WelcomeVC.swift */; };
 		2A0335512F584AA1000217CA /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0335502F584AA1000217CA /* WelcomeView.swift */; };
 		2A0335532F584AEF000217CA /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0335522F584AEF000217CA /* WelcomeModel.swift */; };
+		2A4381932F59947800233EF8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A4381922F59947800233EF8 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A4381932F59947800233EF8 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,7 +46,7 @@
 			children = (
 				2A03354B2F58494F000217CA /* Feature  */,
 				2A0335482F5848B5000217CA /* Core */,
-				2A0335472F58488D000217CA /* SupprotingFiles */,
+				2A0335472F58488D000217CA /* SupportingFiles */,
 				2A0335462F58483E000217CA /* Application */,
 				2A0335452F5847F9000217CA /* Resources */,
 				2A03351B2F583963000217CA /* Products */,
@@ -77,12 +79,12 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		2A0335472F58488D000217CA /* SupprotingFiles */ = {
+		2A0335472F58488D000217CA /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				2A0335392F5845D2000217CA /* Info.plist */,
 			);
-			path = SupprotingFiles;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		2A0335482F5848B5000217CA /* Core */ = {
@@ -167,6 +169,7 @@
 			);
 			name = iCodeProTeamTwo;
 			packageProductDependencies = (
+				2A4381922F59947800233EF8 /* SnapKit */,
 			);
 			productName = iCodeProTeamTwo;
 			productReference = 2A03351A2F583963000217CA /* iCodeProTeamTwo.app */;
@@ -196,6 +199,9 @@
 			);
 			mainGroup = 2A0335112F583963000217CA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2A4381912F59947800233EF8 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2A03351B2F583963000217CA /* Products */;
 			projectDirPath = "";
@@ -253,11 +259,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/hoshimovmatin/iCode/iCodeProTeamTwo/iCodeProTeamTwo/SupprotingFiles/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -283,11 +290,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/hoshimovmatin/iCode/iCodeProTeamTwo/iCodeProTeamTwo/SupprotingFiles/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -446,6 +454,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2A4381912F59947800233EF8 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2A4381922F59947800233EF8 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A4381912F59947800233EF8 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2A0335122F583963000217CA /* Project object */;
 }
