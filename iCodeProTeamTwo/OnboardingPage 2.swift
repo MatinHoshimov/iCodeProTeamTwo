@@ -8,7 +8,7 @@
 
 import UIKit
 
-// 1. Модель данных (чтобы не было ошибки "Cannot find type")
+// 1. Модель данных 
 struct OnboardingPage {
     let image: UIImage?
     let title: String
