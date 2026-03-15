@@ -14,7 +14,6 @@ class OnboardingViewController: UIViewController {
     private var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
-            // На первом слайде индикатор обычно скрывают по дизайну, но если нужен — оставляем
             pageControl.isHidden = (currentPage == 0)
         }
     }
@@ -55,8 +54,7 @@ class OnboardingViewController: UIViewController {
     }
 
     private func setupData() {
-        // Чистый массив без лишних вложений
-        slides = [
+      slides = [
             OnboardingSlide(title: "Best \nRecipe",
                             image: UIImage(named: "onboarding0") ?? UIImage(),
                             buttonTitle: "Get Started"),
@@ -92,7 +90,7 @@ class OnboardingViewController: UIViewController {
 
     // MARK: - Timer Logic
     private func startTimer() {
-        stopTimer() // На всякий случай сбрасываем старый
+        stopTimer() 
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(slideToNext), userInfo: nil, repeats: true)
     }
     
@@ -128,10 +126,7 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as! OnboardingCell
         
-        // Передаем индекс, чтобы ячейка знала, какое слово красить
         cell.setup(slides[indexPath.item], index: indexPath.item)
-        
-        // Удаляем старые таргеты, чтобы не копились, и добавляем новый
         cell.actionButton.removeTarget(nil, action: nil, for: .allEvents)
         cell.actionButton.addTarget(self, action: #selector(handleAction), for: .touchUpInside)
         

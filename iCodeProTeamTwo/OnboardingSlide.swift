@@ -7,8 +7,6 @@
 
 
 import UIKit
-
-// Структура должна быть здесь, чтобы её видели все файлы
 struct OnboardingSlide {
     let title: String
     let image: UIImage
