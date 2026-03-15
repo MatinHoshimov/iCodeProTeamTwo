@@ -7,8 +7,6 @@
 
 
 import UIKit
-
-
 struct OnboardingSlide {
     let title: String
     let image: UIImage
