@@ -10,9 +10,9 @@ import UIKit
 
 // 1. Модель данных (чтобы не было ошибки "Cannot find type")
 struct OnboardingPage {
-    let image: UIImage?
+    let imageName: String
     let title: String
-    let subtitle: String?
+    let highlightedPhrases: [String]
     let buttonText: String
 }
 
