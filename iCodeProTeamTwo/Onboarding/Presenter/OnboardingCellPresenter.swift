@@ -1,84 +1,79 @@
-//
-//  OnboardingCellPresenter.swift
-//  
-//
-//  Created by Madina Samadzoda on 25/03/26.
-//
-
-import Foundation
-
-private extension OnboardingCell {
+final class OnboardingPresenter: OnboardingPresenterProtocol {
     
-    func setupUI() {
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        
-        titleLabel.textColor = .white
-        titleLabel.font = .boldSystemFont(ofSize: 32)
-        titleLabel.numberOfLines = 0
-        titleLabel.textAlignment = .center
-        
-        actionButton.backgroundColor = UIColor(named: "primary50") ?? .systemRed
-        actionButton.setTitleColor(.white, for: .normal)
-        actionButton.layer.cornerRadius = 12
-        
-        skipButton.setTitle("Skip", for: .normal)
-        
-        setupGradient()
+    weak var view: OnboardingViewProtocol?
+    
+    private let storage: AppStorageProtocol
+    
+    private var pages: [OnboardingPage] = []
+    private(set) var items: [OnboardingCellViewModel] = []
+    
+    init(storage: AppStorageProtocol) {
+        self.storage = storage
     }
     
-    func setupGradient() {
-        gradientLayer.colors = [
-            UIColor.clear.cgColor,
-            UIColor.black.withAlphaComponent(0.95).cgColor
-        ]
-        gradientLayer.locations = [0.3, 1.0]
-        imageView.layer.addSublayer(gradientLayer)
+    func viewDidLoad() {
+        pages = makePages()
+        items = pages.enumerated().map { makeViewModel(from: $0.element, index: $0.offset) }
+        view?.reload()
     }
     
-    func setupLayout() {
-        let bottomStack = UIStackView(arrangedSubviews: [actionButton, skipButton])
-        bottomStack.axis = .vertical
-        bottomStack.spacing = 12
-        
-        [imageView, titleLabel, bottomStack].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview($0)
+    func didTapAction(at index: Int) {
+        if index == items.count - 1 {
+            storage.hasSeenOnboarding = true
+            view?.finish()
+        } else {
+            view?.scrollTo(index: index + 1)
         }
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-            bottomStack.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            bottomStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            bottomStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            
-            actionButton.heightAnchor.constraint(equalToConstant: 56),
-            
-            titleLabel.bottomAnchor.constraint(equalTo: bottomStack.topAnchor, constant: -140),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25)
-        ])
+    }
+    
+    func didScroll(to index: Int) {
+        view?.updatePage(index)
     }
 }
 
-func makeViewModel(from page: OnboardingPage) -> OnboardingCellViewModel {
+private extension OnboardingPresenter {
     
-    let attributed = NSMutableAttributedString(string: page.title)
-    
-    page.highlightedPhrases.forEach {
-        let range = (page.title as NSString).range(of: $0)
-        if range.location != NSNotFound {
-            attributed.addAttribute(.foregroundColor, value: UIColor.orange, range: range)
-        }
+    func makePages() -> [OnboardingPage] {
+        [
+            OnboardingPage(imageName: "onboarding0",
+                           title: "Best Recipe",
+                           highlightedPhrases: [],
+                           buttonText: "Get Started"),
+            
+            OnboardingPage(imageName: "onboarding1",
+                           title: "Recipes from all over the World",
+                           highlightedPhrases: ["all over the World"],
+                           buttonText: "Continue"),
+            
+            OnboardingPage(imageName: "onboarding2",
+                           title: "Recipes with each and every detail",
+                           highlightedPhrases: ["each and every detail"],
+                           buttonText: "Continue"),
+            
+            OnboardingPage(imageName: "onboarding3",
+                           title: "Cook it now or save it for later",
+                           highlightedPhrases: ["save it for later"],
+                           buttonText: "Start Cooking")
+        ]
     }
     
-    return OnboardingCellViewModel(
-        image: UIImage(named: page.imageName),
-        attributedTitle: attributed,
-        buttonText: page.buttonText
-    )
+    func makeViewModel(from page: OnboardingPage, index: Int) -> OnboardingCellViewModel {
+        
+        let attributed = NSMutableAttributedString(string: page.title)
+        let accent = UIColor(red: 238/255, green: 204/255, blue: 147/255, alpha: 1)
+        
+        page.highlightedPhrases.forEach {
+            let range = (page.title as NSString).range(of: $0)
+            if range.location != NSNotFound {
+                attributed.addAttribute(.foregroundColor, value: accent, range: range)
+            }
+        }
+        
+        return OnboardingCellViewModel(
+            image: UIImage(named: page.imageName),
+            title: attributed,
+            buttonText: page.buttonText,
+            isSkipHidden: index == 0 || index == 3
+        )
+    }
 }
