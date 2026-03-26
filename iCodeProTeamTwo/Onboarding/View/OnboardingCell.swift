@@ -1,3 +1,5 @@
+import UIKit
+
 final class OnboardingCell: UICollectionViewCell {
     
     static let identifier = "OnboardingCell"

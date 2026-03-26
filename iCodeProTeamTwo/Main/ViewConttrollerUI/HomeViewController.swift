@@ -1,17 +1,8 @@
-//
-//  HomeViewController.swift
-//  
-//
-//  Created by Madina Samadzoda on 26/03/26.
-//
-
-import Foundation
 import UIKit
 
 final class HomeViewController: UIViewController {
     
     private let presenter: HomePresenterProtocol
-    
     private let collectionView: UICollectionView
     
     init(presenter: HomePresenterProtocol) {
@@ -33,6 +24,8 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .background
         
         setupCollection()
+        setupConstraints()
+        
         presenter.viewDidLoad()
     }
 }
@@ -40,27 +33,47 @@ final class HomeViewController: UIViewController {
 private extension HomeViewController {
     
     func setupCollection() {
-        view.addSubview(collectionView)
-        
-        collectionView.frame = view.bounds
         collectionView.backgroundColor = .background
         
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: "RecipeCell")
+        
+        view.addSubview(collectionView)
+    }
+    
+    func setupConstraints() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    // MARK: - Data
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter.items.count
+        return presenter.items.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    // MARK: - Cell
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeCell", for: indexPath) as! RecipeCell
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "RecipeCell",
+            for: indexPath
+        ) as? RecipeCell else {
+            return UICollectionViewCell()
+        }
         
         let item = presenter.items[indexPath.item]
         cell.configure(with: item)
@@ -68,12 +81,29 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
+    // MARK: - Layout
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = (view.frame.width - 30) / 2
+        let padding: CGFloat = 16
+        let spacing: CGFloat = 8
+        
+        let totalWidth = collectionView.bounds.width
+        let width = (totalWidth - padding * 2 - spacing) / 2
+        
         return CGSize(width: width, height: width + 60)
+    }
+    
+    // MARK: - Selection 🔥
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let recipe = presenter.items[indexPath.item]
+        
+        let vc = DetailViewController(recipe: recipe)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -84,7 +114,6 @@ final class RecipeCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupUI()
     }
     
@@ -107,7 +136,7 @@ private extension RecipeCell {
         imageView.clipsToBounds = true
         
         titleLabel.textColor = .textPrimary
-        titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        titleLabel.font = .systemFont(ofSize: 14, weight: .medium)
         
         [imageView, titleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -123,7 +152,8 @@ private extension RecipeCell {
             
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }

@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 final class OnboardingPresenter: OnboardingPresenterProtocol {
     
     weak var view: OnboardingViewProtocol?
